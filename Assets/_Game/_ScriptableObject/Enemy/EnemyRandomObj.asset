@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cf33637c5b3f948899ae81861a0594, type: 3}
+  m_Name: EnemyRandomObj
+  m_EditorClassIdentifier: 
+  materials_body:
+  - {fileID: 2100000, guid: 7f0af7657b3b83f48ba165eadeff6d43, type: 2}
+  - {fileID: 2100000, guid: 24e5d4e5396c10746b72017aa39d8822, type: 2}
+  - {fileID: 2100000, guid: 116d0dd4acc021146b10db604bfcc09b, type: 2}
+  - {fileID: 2100000, guid: 5a2c85b569d5c1b4baf749a6cafbeb84, type: 2}
+  - {fileID: 2100000, guid: 370ea344c7bf6b443a78f3b3ace5d109, type: 2}
+  - {fileID: 2100000, guid: b81ba11f642628e468f1bf21a77f5a07, type: 2}
+  - {fileID: 2100000, guid: 0dc2b7f4312efa346844dd25e3791bf4, type: 2}
+  - {fileID: 2100000, guid: dd4116c0c1c08274e8736bac74adb742, type: 2}
+  - {fileID: 2100000, guid: 1707049792305cd428ac114b92861b9e, type: 2}
+  - {fileID: 2100000, guid: 2af2c34e313f30942a44e3354bebc1ec, type: 2}
+  materials_pants:
+  - {fileID: 2100000, guid: e84d4c513d2c95247ab1b057406b6766, type: 2}
+  - {fileID: 2100000, guid: 8411112922f748f4bb1007458b1720e4, type: 2}
+  - {fileID: 2100000, guid: 34dbfd475b51ad244bb7ce13e812dcc4, type: 2}
+  - {fileID: 2100000, guid: 4183d1df888f5734f92e2ce7d24e9f18, type: 2}
+  - {fileID: 2100000, guid: 791f3bafa5b73ee4babb6bf84b5cbe6b, type: 2}
+  - {fileID: 2100000, guid: 5ad5fe2fd16a71b4fb5f6480a1a4a7d2, type: 2}
+  - {fileID: 2100000, guid: 1829c30edb69d59458ce02d68fed40e8, type: 2}
+  - {fileID: 2100000, guid: 57830793b498fc44eb40580c247ead97, type: 2}
+  - {fileID: 2100000, guid: 5d6d2c0d5b0a3c64abb935c18612dcd0, type: 2}
+  - {fileID: 2100000, guid: 1c643c54c9869dc43b431e8f0449eb3a, type: 2}
+  - {fileID: 2100000, guid: 09504c3e38b61b24cae11d3af0f85db2, type: 2}
+  - {fileID: 2100000, guid: 87e3fa178e7956545b4d0c3e41630aeb, type: 2}
+  - {fileID: 2100000, guid: 9410c5628d9c43f46bcae5309b1c38cc, type: 2}
+  - {fileID: 2100000, guid: f095010f7dffd6a46a6892afd13140b1, type: 2}
+  - {fileID: 2100000, guid: a91e7cfde38ae9e4a8994706dc24a28f, type: 2}
+  - {fileID: 2100000, guid: d04bb62ba2414c6459c0df58f0077d49, type: 2}
+  - {fileID: 2100000, guid: 9cb455a618a6e274cb3f4d9f47c234f1, type: 2}
+  weapon_hold:
+  - {fileID: 6631450432033280675, guid: 6792b12b6fd024944925008d6dae7931, type: 3}
+  - {fileID: 1183598430815540528, guid: 582e092f899654e4788ec50affd6d648, type: 3}
+  - {fileID: 3146213775905627499, guid: 3169afcfd8e8d644fb8f4236070bf69f, type: 3}
+  - {fileID: 2774914305842834732, guid: e6d82512723544e4e91d54816012e465, type: 3}
+  - {fileID: 2611023300772851564, guid: 4240955244c0b6d4fb23c0e62de354d8, type: 3}
+  - {fileID: 6178012049125945725, guid: a2c5fced90be2ff4f80e12491b8d4179, type: 3}
+  - {fileID: 8011913918697605686, guid: 0b4e674efc42f794a8151e042cb9fd10, type: 3}
+  - {fileID: 839023233600481435, guid: bdfa09002b9d9af44a8dacd84a4b9f6a, type: 3}
+  - {fileID: 3258785322813870200, guid: e48f1447cc46ede4abc29c5115749e78, type: 3}
+  - {fileID: 5808698619149925164, guid: 85ac166ddb0e36e41bec47ab51cdf309, type: 3}
+  weapon_throw:
+  - {fileID: 2662976395196642379, guid: 25524d7389f6ab64c95409315aae3f5b, type: 3}
+  - {fileID: 2661551747254017551, guid: 53ac0d4fbd0ceaa49aba1626ef8b51ee, type: 3}
+  - {fileID: 2661551747254017551, guid: e711814b9b434484db59cc153c5514d7, type: 3}
+  - {fileID: 7619172995278842757, guid: d2243a25c662ee346b1c028fd93b5eac, type: 3}
+  - {fileID: 7149454222310069375, guid: 57ae5f6197282504598ca763d74bf17c, type: 3}
+  - {fileID: 7619172995278842757, guid: ca7678f8bf9ab4a40acd8831e731b433, type: 3}
+  - {fileID: 7149454222310069375, guid: 18a3944a5d6860b499941998d5df8316, type: 3}
+  - {fileID: 2053064001698601882, guid: d45914f97a626084a9e8f5c940eebe47, type: 3}
+  - {fileID: 2053064001698601882, guid: c6796c1d7875f4944b4f8dc2ad27f30f, type: 3}
+  - {fileID: 1718460876696729877, guid: 602daaa9cb35c5a4a8cba37dada34b4b, type: 3}
+  hairs:
+  - {fileID: 931388021536839608, guid: 37a2f60787304c14ca89325689995870, type: 3}
+  - {fileID: 7843177770021598918, guid: 919a370cfa2b60d47b1c3bddc3e18800, type: 3}
+  - {fileID: 1304311453956072208, guid: c7fc1f4a7ba024c4a82fef082a965bde, type: 3}
+  - {fileID: 1148914932921400564, guid: 0533d3afa99fb6d4da749f954ddc0b90, type: 3}
+  - {fileID: 2172496136216055461, guid: 8d3d93908401f9c4b930eb23dce693d8, type: 3}
+  - {fileID: 624366586449451079, guid: 5b3e6d90bcef86647b1f7ccc4016473f, type: 3}
+  - {fileID: 6714307609021304453, guid: 98d7889e99190a748893e4d04005cfa7, type: 3}
+  - {fileID: 7704606671002611510, guid: 06d7494ada60b3345a1b48ab28655f2e, type: 3}
+  - {fileID: 7421400502523488817, guid: 8b5cead3badc8604797c4e03ee570b18, type: 3}
+  nameEnemy:
+  - Bob
+  - Nam
+  - Enemy
+  - Hoang
+  - Alice
+  - Kurama
+  - Naruto
+  - Vegeta
+  - Luffy
+  - Grant
+  - Cap
+  - Alex
+  - Mutex
+  - Cute
+  - John
+  - Sena
+  - HN1610
+  - Upmoon
+  - Negaxy

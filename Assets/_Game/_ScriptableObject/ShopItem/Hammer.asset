@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8daa14f19962d44ab3ec8710329f10b, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  nameWeapon: HAMMER
+  status: Purchased
+  weapon: {fileID: 11400000, guid: f7b9d69c55369f9418a1f9665b060c5b, type: 2}
+  required_item: 
+  imageWeapon: {fileID: 839023233600481435, guid: 8f5bab9d71aa24d47a0d29b205aa304e, type: 3}
+  param_Attack: +3 Range
+  price: 0
+  skinWeapon:
+  - {fileID: 8948039776417992388, guid: 77c5de30759d87a479e9a0a5826a92ce, type: 3}
+  - {fileID: 1213408396181939566, guid: b0705ef3a028eee42b3bee7dfebf8ff3, type: 3}
+  - {fileID: 2478480624632788458, guid: 589747f83667bf244a1d8f747d45b0f7, type: 3}
+  - {fileID: 7343874825650559182, guid: 60f7e31b5bd40384fae34fe19ab8b621, type: 3}
+  - {fileID: 4006436187853993556, guid: 0194296eae2111e4997a80a9b135bb1c, type: 3}

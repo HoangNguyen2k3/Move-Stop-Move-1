@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8daa14f19962d44ab3ec8710329f10b, type: 3}
+  m_Name: boomerang
+  m_EditorClassIdentifier: 
+  nameWeapon: boomerang
+  status: NotPurchased
+  weapon: {fileID: 11400000, guid: 4f7079b774bdaf84695102e7d448c287, type: 2}
+  required_item: 
+  imageWeapon: {fileID: 7950775044278575284, guid: b7c1a5cf62299984eaf139a78239d085, type: 3}
+  param_Attack: Special Skill
+  price: 600
+  skinWeapon:
+  - {fileID: 7950775044278575284, guid: b7c1a5cf62299984eaf139a78239d085, type: 3}
+  - {fileID: 7950775044278575284, guid: 37e4fff738209df408c3a717f0356451, type: 3}
+  - {fileID: 7950775044278575284, guid: 2942496de5914d545991a047c85dc501, type: 3}
+  - {fileID: 7950775044278575284, guid: f2875adb1bd75b34cb10f500296b14a9, type: 3}
+  - {fileID: 7950775044278575284, guid: c9a6744fe9854f1438220423b2b69d68, type: 3}

@@ -1,0 +1,135 @@
+using TMPro;
+using UnityEngine;
+
+public class PurchaseCustomWeapon : MonoBehaviour
+{
+    [SerializeField] private GameObject[] five_type_weapon;
+    [SerializeField] private GameObject image_weapon;
+    [SerializeField] private GameObject[] active_weapon;
+    [SerializeField] private TextMeshProUGUI param_Weapon;
+    [SerializeField] private TextMeshProUGUI nameWeapon;
+
+    [SerializeField] private ComponentOptColor component;
+    [SerializeField] private GameObject purchaseButton;
+    [SerializeField] private GameObject TableColor;
+
+    [HideInInspector] public WeaponShop weapon;
+
+    [SerializeField] private RectTransform begin_Pos;
+    public static WeaponShop lastWeaponShop;
+
+    [SerializeField] private FirstPageShop custom;
+    [SerializeField] private WeaponShopUI weaponUI;
+    public static float num_weap = 2;
+
+    [SerializeField] private TextMeshProUGUI text_purchaseButton;
+    [SerializeField] private UIGeneratePress ui_show;
+
+    [SerializeField] private Rewarded rewarded;//prepare bay mau
+    [SerializeField] private FirstPageShop[] firstPage;
+
+    [SerializeField] private RewardAdsButton rewardBtn;
+    public void ChangeWeapon() {
+        lastWeaponShop = weapon;
+
+        for (int i = 0; i < five_type_weapon.Length; i++) {
+            five_type_weapon[i].GetComponent<MeshFilter>().mesh = weapon.skinWeapon[i].GetComponent<MeshFilter>().sharedMesh;
+            five_type_weapon[i].GetComponent<MeshRenderer>().materials = weapon.skinWeapon[i].GetComponent<MeshRenderer>().sharedMaterials;
+        }
+        /*        image_weapon.GetComponent<MeshFilter>().mesh = weapon.skinWeapon[2].GetComponent<MeshFilter>().sharedMesh;
+                image_weapon.GetComponent<MeshRenderer>().materials = weapon.skinWeapon[2].GetComponent<MeshRenderer>().sharedMaterials;
+                for (int i = 0; i < five_type_weapon.Length; i++)
+                {
+                    if (i == 2) { active_weapon[i].SetActive(true); }
+                    else { active_weapon[i].SetActive(false); }
+                }*/
+        param_Weapon.text = weapon.param_Attack.ToString();
+        nameWeapon.text = weapon.nameWeapon.ToString();
+        component.ChangeComponent(weapon.imageWeapon.GetComponent<MeshRenderer>().sharedMaterials.Length);
+        custom.GetColorCustom(lastWeaponShop.imageWeapon.GetComponent<MeshRenderer>().sharedMaterials.Length);
+
+        CheckCurrentWeaponCustom();
+        CheckInitCustom();
+    }
+    public void CheckInitCustom() {
+        if (!PlayerPrefs.HasKey("Color_" + PurchaseCustomWeapon.lastWeaponShop.nameWeapon + "_custom_0")) {
+            for (int i = 0; i < lastWeaponShop.skinWeapon[0].GetComponent<MeshRenderer>().sharedMaterials.Length; i++) {
+                Color selectedColor = lastWeaponShop.skinWeapon[0].GetComponent<MeshRenderer>().sharedMaterials[i].color;
+                string hexColor = "#" + ColorUtility.ToHtmlStringRGB(selectedColor);
+                PlayerPrefs.SetString("Color_" + PurchaseCustomWeapon.lastWeaponShop.nameWeapon + "_custom_" + i.ToString(), hexColor);
+            }
+        }
+    }
+    private void CheckCurrentWeaponCustom() {
+        int temp = 2;
+        for (int i = 0; i < 5; i++) {
+            if (PlayerPrefs.HasKey(lastWeaponShop.nameWeapon + " select_button" + i)) {
+                if (PlayerPrefs.GetString(lastWeaponShop.nameWeapon + " select_button" + i) == "Equip") {
+                    temp = i; break;
+                }
+            }
+        }
+        //       image_weapon.GetComponent<MeshFilter>().mesh = weapon.skinWeapon[temp].GetComponent<MeshFilter>().sharedMesh;
+        //       image_weapon.GetComponent<MeshRenderer>().materials = weapon.skinWeapon[temp].GetComponent<MeshRenderer>().sharedMaterials;
+        for (int i = 0; i < five_type_weapon.Length; i++) {
+            if (i == temp) { active_weapon[i].SetActive(true); }
+            else { active_weapon[i].SetActive(false); }
+        }
+        num_weap = temp;
+        /*        custom.SetColorButton(temp);
+                CheckEqippedWeapon(temp);
+                custom.CheckLock();*/
+        firstPage[temp].num_weapon = temp;
+        firstPage[temp].OnChangeType();
+        firstPage[temp].CheckLock();
+        if (temp == 0) {
+
+            //ui_show.ShowAndHiddenGameObject();
+            TableColor.SetActive(true);
+        }
+        else {
+            TableColor.SetActive(false);
+        }
+        if (begin_Pos && temp != 0)
+            purchaseButton.GetComponent<RectTransform>().anchoredPosition = begin_Pos.anchoredPosition;
+        else {
+            purchaseButton.GetComponent<RectTransform>().anchoredPosition = custom.custom_Pos.anchoredPosition;
+        }
+    }
+
+    public void SelectWeapon() {
+        if (num_weap == 4 || num_weap == 3) {
+            if (!PlayerPrefs.HasKey(lastWeaponShop.nameWeapon + " select_button" + num_weap)) {
+                rewardBtn?.ShowAds();
+                return;
+            }
+        }
+        weaponUI.SelectWeapon(lastWeaponShop, num_weap);
+        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, "Equip");
+        weaponUI.SetAgain(lastWeaponShop.nameWeapon + " select_button" + num_weap);
+        CheckEqippedWeapon((int)num_weap);
+        ui_show.ShowAndHiddenGameObject();
+    }
+    public void GainAdsCustomWeapon() {
+        weaponUI.SelectWeapon(lastWeaponShop, num_weap);
+        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, "Equip");
+        weaponUI.SetAgain(lastWeaponShop.nameWeapon + " select_button" + num_weap);
+        CheckEqippedWeapon((int)num_weap);
+        ui_show.ShowAndHiddenGameObject();
+    }
+    public void CheckEqippedWeapon(int i) {
+
+        if (PlayerPrefs.HasKey(lastWeaponShop.nameWeapon + " select_button" + i)) {
+            if (PlayerPrefs.GetString(lastWeaponShop.nameWeapon + " select_button" + i) == "Equip") {
+                text_purchaseButton.text = "SELECTED";
+                return;
+            }
+            else {
+                text_purchaseButton.text = "SELECT";
+                return;
+            }
+        }
+
+    }
+
+}
