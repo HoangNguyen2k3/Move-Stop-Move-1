@@ -28,6 +28,9 @@ public static class ApplicationVariable
     public static string CURRENT_LEVEL_GAME = "LevelGame";
     public static string CURRENT_MAP = "Current_Map";
     public static string MAX_RECORD_GAME = "Max_Record";
+    public static float NUM_ENEMY_MAP_1 = 20;
+    public static float NUM_ENEMY_MAP_2 = 35;
+    public static float NUM_ENEMY_MAP_3 = 50;
     //Ads One Time Clothes
     public static string NAME_ADD_ONE_TIME = "NameAdsOneTime";
     public static string TYPE_ADD_ONE_TIME = "TypeAdsOneTime";

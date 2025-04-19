@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 
-public class LevelGameManager : MonoBehaviour {
+public class LevelGameManager : MonoBehaviour
+{
     [SerializeField] private TextMeshProUGUI[] text;
     [SerializeField] private TextMeshProUGUI num_enemy;
 
@@ -10,7 +11,7 @@ public class LevelGameManager : MonoBehaviour {
     public float enemy_level_hard = 50;
     string temp = "CURRENT LEVEL: ";
 
-    private void Start() {
+    private void Awake() {
         if (!PlayerPrefs.HasKey(ApplicationVariable.CURRENT_LEVEL_GAME)) {
             PlayerPrefs.SetString(ApplicationVariable.CURRENT_LEVEL_GAME, "EASY");
             ChangeGameLevel_Easy();

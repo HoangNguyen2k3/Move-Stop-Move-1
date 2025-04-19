@@ -143,8 +143,8 @@ public class EnemyAI : MonoBehaviour
             throwWeapon.GetComponent<ThrowWeapon>().isUltimate = true;
             throwWeapon.GetComponent<ThrowWeapon>().ChangeMaxScale(throwWeapon.transform.localScale.x * 4, 5);
             Vector3 currentPosAttack = posStartThrow.position;
-            currentPosAttack.y = transform.position.y + 1f;
-            target_temp.y = transform.position.y + 1f;
+            currentPosAttack.y = transform.position.y + 1.2f;
+            target_temp.y = transform.position.y + 1.2f;
             Vector3 dir = (target_temp - currentPosAttack).normalized;
             throwWeapon.GetComponent<ThrowWeapon>().dir_ulti = dir;
             throwWeapon.GetComponent<ThrowWeapon>().target = target.GetComponentInChildren<TargetPos>().transform.position;

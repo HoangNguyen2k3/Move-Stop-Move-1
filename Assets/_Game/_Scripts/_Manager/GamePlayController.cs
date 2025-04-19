@@ -35,13 +35,19 @@ public class GamePlayController : Singleton<GamePlayController>
     private Vector3 randomPoint;
     private UIGeneratePress ui_generate;
     [Header("--------------Next Level Map-------------")]
+    //-------------------GiftBox-----------------------
     public GameObject giftBox;
     public bool isGiftBox = false;
     public bool isHoldGiftBox = false;
+    //----------------Map Level------------------------
     public GameObject[] map_level;
     public NavMeshSurface navMeshSurface;
     public Sprite[] sprite_level;
     public Image sprite_main_level;
+
+    public TextMeshProUGUI numEnemy;
+    public TextMeshProUGUI currentZoneInPlayBtn;
+    public Slider slider_star;
     private void Start() {
         SetupMapLevel();
         ui_generate = GetComponent<UIGeneratePress>();
@@ -249,17 +255,42 @@ public class GamePlayController : Singleton<GamePlayController>
             PlayerPrefs.SetInt(ApplicationVariable.CURRENT_MAP, 1);
         }
         int current_map = PlayerPrefs.GetInt(ApplicationVariable.CURRENT_MAP);
+        switch (current_map) {
+            case 1:
+                PlayerPrefs.SetFloat(ApplicationVariable.LEVEL_GAME, ApplicationVariable.NUM_ENEMY_MAP_1);
+                break;
+            case 2:
+                PlayerPrefs.SetFloat(ApplicationVariable.LEVEL_GAME, ApplicationVariable.NUM_ENEMY_MAP_2);
+                break;
+            case 3:
+                PlayerPrefs.SetFloat(ApplicationVariable.LEVEL_GAME, ApplicationVariable.NUM_ENEMY_MAP_3);
+                break;
+        }
+        numEnemy.text = PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME).ToString();
+        int best_current_map = PlayerPrefs.GetInt("MaxRecordMap" + current_map.ToString(), (int)PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME));
+        currentZoneInPlayBtn.text = "ZONE:" + current_map.ToString() + "  -  " + "BEST:#" + best_current_map.ToString();
+        if (current_map > 1) {
+            isGiftBox = true;
+        }
         map_level[current_map - 1].SetActive(true);
+        for (int i = 0; i < map_level.Length; i++) {
+            if (i != (current_map - 1)) {
+                Destroy(map_level[i]);
+            }
+        }
         navMeshSurface.BuildNavMesh();
         int max_record = PlayerPrefs.GetInt(ApplicationVariable.MAX_RECORD_GAME, 0);
-        if (max_record < 20) {
+        if (max_record < 18) {
             sprite_main_level.sprite = sprite_level[0];
+            slider_star.value = (float)max_record / 17;
         }
-        else if (max_record >= 20 && max_record < 40) {
+        else if (max_record >= 18 && max_record < 40) {
             sprite_main_level.sprite = sprite_level[1];
+            slider_star.value = (float)max_record / 39;
         }
         else if (max_record >= 40) {
             sprite_main_level.sprite = sprite_level[2];
+            slider_star.value = (float)max_record / 100;
         }
     }
     #endregion
