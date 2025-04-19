@@ -24,6 +24,7 @@ public class WinnerGameState : MonoBehaviour, IGameState
         winningCam.Priority = 10;
         winningGame.SetActive(true);
         earnCoinwin.text = GamePlayController.Instance.num_coin.ToString();
+        GamePlayController.Instance.CheckRecordPlayer();
         playerController.animator.SetBool(ApplicationVariable.WIN_STATE, true);
         ui_generate.ShowAndHiddenGameObject();
         playerController.isWinning = true;

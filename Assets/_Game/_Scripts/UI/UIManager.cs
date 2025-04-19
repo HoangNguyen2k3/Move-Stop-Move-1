@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < name_player_txt.Length; i++) {
             name_player_txt[i].text = PlayerPrefs.GetString("NamePlayer", "YOU");
         }
+        GamePlayController.Instance.CheckRecordPlayer();
     }
 
     public void RestartScene() {

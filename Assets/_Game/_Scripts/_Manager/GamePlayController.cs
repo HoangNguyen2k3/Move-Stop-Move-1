@@ -1,8 +1,10 @@
 using TMPro;
+using Unity.AI.Navigation;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
@@ -36,7 +38,12 @@ public class GamePlayController : Singleton<GamePlayController>
     public GameObject giftBox;
     public bool isGiftBox = false;
     public bool isHoldGiftBox = false;
+    public GameObject[] map_level;
+    public NavMeshSurface navMeshSurface;
+    public Sprite[] sprite_level;
+    public Image sprite_main_level;
     private void Start() {
+        SetupMapLevel();
         ui_generate = GetComponent<UIGeneratePress>();
         if (PlayerPrefs.HasKey(ApplicationVariable.LEVEL_GAME)) {
             enemy_remain = PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME);
@@ -47,6 +54,8 @@ public class GamePlayController : Singleton<GamePlayController>
         if (isGiftBox)
             InvokeRepeating(nameof(SpawnGift), 0, 5f);
     }
+
+
 
     private void Update() {
         if (GameStateManager.Instance.currentStateGame == ApplicationVariable.StateGame.InLobby) {
@@ -228,6 +237,30 @@ public class GamePlayController : Singleton<GamePlayController>
     public void RestartScene() {
         GamePlayController.Instance.gameObject.GetComponentInChildren<CoinManager>().AddingCoin();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void CheckRecordPlayer() {
+        int temp = PlayerPrefs.GetInt(ApplicationVariable.MAX_RECORD_GAME, 0);
+        if (temp < num_coin) {
+            PlayerPrefs.SetInt(ApplicationVariable.MAX_RECORD_GAME, (int)num_coin);
+        }
+    }
+    private void SetupMapLevel() {
+        if (!PlayerPrefs.HasKey(ApplicationVariable.CURRENT_MAP)) {
+            PlayerPrefs.SetInt(ApplicationVariable.CURRENT_MAP, 1);
+        }
+        int current_map = PlayerPrefs.GetInt(ApplicationVariable.CURRENT_MAP);
+        map_level[current_map - 1].SetActive(true);
+        navMeshSurface.BuildNavMesh();
+        int max_record = PlayerPrefs.GetInt(ApplicationVariable.MAX_RECORD_GAME, 0);
+        if (max_record < 20) {
+            sprite_main_level.sprite = sprite_level[0];
+        }
+        else if (max_record >= 20 && max_record < 40) {
+            sprite_main_level.sprite = sprite_level[1];
+        }
+        else if (max_record >= 40) {
+            sprite_main_level.sprite = sprite_level[2];
+        }
     }
     #endregion
 }

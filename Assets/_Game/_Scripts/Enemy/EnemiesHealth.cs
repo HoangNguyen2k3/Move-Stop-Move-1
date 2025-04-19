@@ -56,6 +56,9 @@ public class EnemiesHealth : MonoBehaviour
         }
     }
     private void TakedDamageBoss() {
+        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+            Handheld.Vibrate();
+        }
         transform.localScale -= new Vector3(scale_down, scale_down, scale_down);
         hpBoss -= 1;
         if (hpBoss <= 0) {
@@ -76,6 +79,9 @@ public class EnemiesHealth : MonoBehaviour
         //Die();
     }
     private void ZombieEnemy() {
+        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+            Handheld.Vibrate();
+        }
         CircleRange player = FindFirstObjectByType<CircleRange>();
         if (player != null) {
             player.GetComponent<CircleRange>().RemoveEnemyFromList(transform);
