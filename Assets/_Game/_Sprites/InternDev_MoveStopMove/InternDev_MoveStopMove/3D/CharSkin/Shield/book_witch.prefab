@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: -1504981713932161579, guid: 6bf29483804225f4d9ac3ff3263ec925, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: ec840ed79d5821048b8d6a4aeecb83ec, type: 2}
+      objectReference: {fileID: 2100000, guid: d04bb62ba2414c6459c0df58f0077d49, type: 2}
     - target: {fileID: -927199367670048503, guid: 6bf29483804225f4d9ac3ff3263ec925, type: 3}
       propertyPath: m_Name
       value: book_witch

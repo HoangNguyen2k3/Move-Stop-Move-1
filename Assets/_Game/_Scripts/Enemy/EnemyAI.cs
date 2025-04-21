@@ -80,6 +80,9 @@ public class EnemyAI : MonoBehaviour
         }
         if (target == null || target.gameObject.activeSelf == false) FindNearestTarget();
         if (target != null && target.root.gameObject.activeSelf == false) FindNearestTarget();
+        if (target != null && Vector3.Distance(transform.position, target.position) > attackRange) {
+            FindNearestTarget();
+        }
         if (target != null && target.gameObject.activeSelf && Vector3.Distance(transform.position, target.position) <= attackRange) {
             StopAndAttack();
             CancelInvoke(nameof(Wander));
@@ -112,10 +115,10 @@ public class EnemyAI : MonoBehaviour
 
         target = nearest;
     }
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, attackRange);
-    }
+    /*    private void OnDrawGizmos() {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, attackRange);
+        }*/
     private void StopAndAttack() {
         enemy.SetDestination(transform.position);
         if (!isAttacking) {
@@ -131,7 +134,7 @@ public class EnemyAI : MonoBehaviour
         if (active_ultimate) {
             animator.SetBool(ApplicationVariable.ULTI, true);
         }
-        animator.SetBool("IsAttack", true);
+        animator.SetBool(ApplicationVariable.ATTACK_PLAYER_STATE, true);
 
         yield return new WaitForSeconds(0.1f);
         GameObject throwWeapon = Instantiate(weaponThrow, posStartThrow.position, Quaternion.identity);

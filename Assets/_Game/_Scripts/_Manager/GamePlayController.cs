@@ -30,6 +30,8 @@ public class GamePlayController : Singleton<GamePlayController>
     public PlayerController playerController;
     public LevelManager levelManager;
     private float enemy_not_spawn_num;
+    [Header("---------------------UI-----------------------")]
+    public TextMeshProUGUI dayZombieMode;
     private bool firstTime = true;
     private string enemy_text = "ALIVE: ";
     private Vector3 randomPoint;
@@ -251,6 +253,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
     private void SetupMapLevel() {
+        dayZombieMode.text = PlayerPrefs.GetInt(ApplicationVariable.DAY_ZOMBIE_MODE, 1).ToString();
         if (!PlayerPrefs.HasKey(ApplicationVariable.CURRENT_MAP)) {
             PlayerPrefs.SetInt(ApplicationVariable.CURRENT_MAP, 1);
         }

@@ -33,6 +33,10 @@ public class EnemiesHealth : MonoBehaviour
                 if (other.GetComponent<ThrowWeapon>().who_throw == ApplicationVariable.ENEMY_TAG) { return; }
                 ParticleSystem temp = Instantiate(take_damage_FX, pos_particle.position, Quaternion.identity);
                 isAlive = false;
+                PlayerController player = FindFirstObjectByType<PlayerController>();
+                if (player != null) {
+                    player.RemoveEnemyFromList(transform);
+                }
                 temp.GetComponent<ParticleSystemRenderer>().material = current_Mesh.material;
                 Die();
             }
@@ -93,7 +97,9 @@ public class EnemiesHealth : MonoBehaviour
     public void Die() {
         currentCollider.enabled = false;
         if (!take_damage_FX.isPlaying && !isAlive) {
-            SoundManager.Instance?.PlaySFXSound(SoundManager.Instance.dead);
+            if (SoundManager.Instance) {
+                SoundManager.Instance?.PlaySFXSound(SoundManager.Instance.dead);
+            }
             animator.SetBool(ApplicationVariable.IS_DEAD_STATE, true);
             Invoke(nameof(DestroyEnemy), 1.0f);
         }

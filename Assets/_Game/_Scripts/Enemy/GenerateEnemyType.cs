@@ -10,7 +10,9 @@ public class GenerateEnemyType : MonoBehaviour
     [SerializeField] private GameObject weapon_start_hold;
     [SerializeField] private GameObject hair;
     [SerializeField] public TextMeshProUGUI nameEnemy;
+    //[SerializeField] public TextMeshPro nameEnemy;
     [SerializeField] public Image image;
+    //[SerializeField] public SpriteRenderer image;
 
     public int random_level;
 
@@ -70,7 +72,9 @@ public class GenerateEnemyType : MonoBehaviour
         SetSkinEnemy(hair_h);
         nameEnemy.text = enemyRandomObj.nameEnemy[Random.Range(0, enemyRandomObj.nameEnemy.Length)];
         nameEnemy.GetComponent<TextMeshProUGUI>().color = skin.material.color;
+        // nameEnemy.GetComponent<TextMeshPro>().color = skin.material.color;
         image.GetComponent<Image>().color = skin.material.color;
+        //image.color = skin.material.color;
     }
     public void SetSkinEnemy(GameObject hair_new) {
         if (hair != null && hair_new != null) {

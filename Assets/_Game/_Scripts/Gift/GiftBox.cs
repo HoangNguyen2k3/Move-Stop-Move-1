@@ -13,7 +13,7 @@ public class GiftBox : MonoBehaviour
             }
         }*/
     private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag(ApplicationVariable.PLAYER_TAG)) {
             other.gameObject.GetComponent<PlayerController>().Ultimate();
             gameObject.SetActive(false);

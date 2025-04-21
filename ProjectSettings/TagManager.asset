@@ -12,6 +12,7 @@ TagManager:
   - ThrowWeapon
   - Explosion
   - CheckStatus
+  - Obstacle
   layers:
   - Default
   - TransparentFX

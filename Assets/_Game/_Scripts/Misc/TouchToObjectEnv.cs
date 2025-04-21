@@ -58,4 +58,7 @@ public class TouchToObjectEnv : MonoBehaviour
         }
         //}
     }
+    public void ReturnForceColorObj() {
+        GetComponent<MeshRenderer>().material = begin_material;
+    }
 }

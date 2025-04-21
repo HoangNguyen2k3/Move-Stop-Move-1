@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
     public UIManager uiManager;
     [SerializeField] private TextMeshProUGUI name_text;
     [SerializeField] private Image level_bg;
+
+    //[SerializeField] private TextMeshPro name_text;
+    //[SerializeField] private SpriteRenderer level_bg;
 
     private GameObject temp_target;
     [Header("-----------------Init weapon---------------")]
@@ -321,6 +325,7 @@ public class PlayerController : MonoBehaviour
         hold_weapon.GetComponent<MeshRenderer>().materials = characterPlayer.current_Weapon.weaponHold.GetComponent<MeshRenderer>().sharedMaterials;
     }
     private IEnumerator DiePlayer() {
+        ReturnEnvironmentMat();
         ParticleSystem temp = Instantiate(take_damage_FX, transform.position, Quaternion.identity);
         temp.GetComponent<ParticleSystemRenderer>().material = current_Mesh.material;
         isAnimationDead = true;
@@ -338,6 +343,12 @@ public class PlayerController : MonoBehaviour
             /*            gameObject.GetComponent<Collider2D>().enabled = false;
                         yield return new WaitForSeconds(0.5f);*/
             Destroy(gameObject);
+        }
+    }
+    public void ReturnEnvironmentMat() {
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (GameObject obj2 in obj) {
+            obj2.GetComponentInChildren<TouchToObjectEnv>().ReturnForceColorObj();
         }
     }
     public void RevivePlayer() {

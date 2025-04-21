@@ -33,7 +33,7 @@ public class KeepScreenSize : MonoBehaviour
         float scale = scaleAtDefaultDistance * (distanceOnViewAxis / defaultDistance);
         float yOffset = Mathf.Lerp(0f, maxYOffset, scale);
         transform.position = target.position + offset + new Vector3(0f, yOffset + 0.4f, 0f);
-
+        //transform.position = target.position + offset;
 
         transform.localScale = Vector3.one * scale;
         if (target.localScale != initialTargetScale) {
