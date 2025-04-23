@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textlevel;
-    //[SerializeField] private TextMeshPro textlevel;
+
+    //[SerializeField] private TextMeshProUGUI textlevel;
+    [SerializeField] private TextMeshPro textlevel;
     [Header("---------------If is Player----------------")]
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerZombie playerZombie;

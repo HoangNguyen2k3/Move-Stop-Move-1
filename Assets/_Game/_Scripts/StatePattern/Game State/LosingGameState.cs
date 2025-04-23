@@ -16,7 +16,6 @@ public class LosingGameState : MonoBehaviour, IGameState
     public Sprite[] sprite_Icon;
     public Image BeginLevelIcon;
     public Image NextLevelIcon;
-
     public TextMeshProUGUI beginLevel;
     public TextMeshProUGUI nextLevel;
     public Slider sliderProcess;
@@ -31,7 +30,6 @@ public class LosingGameState : MonoBehaviour, IGameState
         uiGenerate.ShowAndHiddenGameObject();
         uiManager.ProcessEndGame();
         gameOverReal.SetActive(true);
-        //GameStateManager.Instance.is_losing = true;
         setting.ShowAndHiddenGameObject();
         smtHidden1.SetActive(false);
         smtHidden2.SetActive(false);
@@ -46,8 +44,13 @@ public class LosingGameState : MonoBehaviour, IGameState
             BeginLevelIcon.sprite = sprite_Icon[current_map - 1];
             NextLevelIcon.sprite = sprite_Icon[current_map];
             rank = GamePlayController.Instance.enemy_remain + 1;
-            float sliderValue = startProcess + (1 - (rank / PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME))) * (stopProcess - startProcess);
-            sliderProcess.value = sliderValue;
+            if (rank > PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME)) {
+                sliderProcess.value = startProcess;
+            }
+            else {
+                float sliderValue = startProcess + (1 - (rank / PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME))) * (stopProcess - startProcess);
+                sliderProcess.value = sliderValue;
+            }
         }
         else {
             beginLevel.text = "ZONE: 3";
@@ -58,14 +61,14 @@ public class LosingGameState : MonoBehaviour, IGameState
             float sliderValue = startProcess + (1 - (rank / PlayerPrefs.GetFloat(ApplicationVariable.LEVEL_GAME))) * (stopProcess - startProcess);
             sliderProcess.value = sliderValue;
         }
-        if (PlayerPrefs.HasKey("MaxRecordMap" + current_map.ToString())) {
-            int temp = PlayerPrefs.GetInt("MaxRecordMap" + current_map.ToString());
+        if (PlayerPrefs.HasKey(ApplicationVariable.MAX_RECORD_MAP + current_map.ToString())) {
+            int temp = PlayerPrefs.GetInt(ApplicationVariable.MAX_RECORD_MAP + current_map.ToString());
             if (temp > rank) {
-                PlayerPrefs.SetInt("MaxRecordMap" + current_map.ToString(), (int)rank);
+                PlayerPrefs.SetInt(ApplicationVariable.MAX_RECORD_MAP + current_map.ToString(), (int)rank);
             }
         }
         else {
-            PlayerPrefs.SetInt("MaxRecordMap" + current_map.ToString(), (int)rank);
+            PlayerPrefs.SetInt(ApplicationVariable.MAX_RECORD_MAP + current_map.ToString(), (int)rank);
         }
     }
 

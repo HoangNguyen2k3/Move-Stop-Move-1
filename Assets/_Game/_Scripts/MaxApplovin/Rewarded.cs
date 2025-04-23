@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using UnityEngine;
 
 public class Rewarded : Singleton<Rewarded>
@@ -189,3 +189,4 @@ public class Rewarded : Singleton<Rewarded>
 
     }
 }
+*/

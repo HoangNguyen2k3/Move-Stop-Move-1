@@ -15,9 +15,12 @@ public static class ApplicationVariable
     public static string ENEMY_TAG = "Enemy";
     public static string IGNORE_TAG = "Ignore";
     //Status purchase
+    public static string eqquip_status = "Equip";
     public static string purchase_status = "Purchased";
     public static string eqquipped_status = "Equipped";
     public static string notPurchase_status = "NotPurchased";
+    public static string SELECTED_STATUS = "SELECTED";
+    public static string SELECT_STATUS = "SELECT";
     public static string COIN = "Coin";
     public static string PATH_CLOTHES_SAVE = "Clothes";
     public static string PATH_CLOTHES_PLAYER = "Player_Clothes";
@@ -31,19 +34,23 @@ public static class ApplicationVariable
     public static float NUM_ENEMY_MAP_1 = 20;
     public static float NUM_ENEMY_MAP_2 = 35;
     public static float NUM_ENEMY_MAP_3 = 50;
+    public static string OBSTACLE = "Obstacle";
     //Ads One Time Clothes
     public static string NAME_ADD_ONE_TIME = "NameAdsOneTime";
     public static string TYPE_ADD_ONE_TIME = "TypeAdsOneTime";
     public static string USE_ONE_TIME_IN_ZOMBIE = "zombie_clother";
     //
+    public static string CANVAS_OVERLAY = "CanvasOverlay";
     public static string TEXT_ANNOUCE = "TextAnouce";
     //Player
     public static string NAME_PLAYER = "NamePlayer";
     //Save data
+    public static string MAX_RECORD_MAP = "MaxRecordMap";
     public static string FIRST_SAVE = "firstSave";
     //Sound
     public static string SOUND = "Sound";
     public static string VIBRANT = "Vibrant";
+
     [Header("--------------Zombie Mode-----------------")]
     public static string DAY_ZOMBIE_MODE = "DayZombieMode";
     public static string EXPLOSION_TAG = "Explosion";

@@ -38,7 +38,6 @@ public class CircleRange : MonoBehaviour
         if (other.CompareTag(ApplicationVariable.ENEMY_TAG)) {
             Transform enemy = other.transform;
             enemiesInRange.Remove(enemy);
-
             if (enemy == firstEnemy) {
                 firstEnemy = enemiesInRange.Count > 0 ? enemiesInRange[0] : null;
                 UpdateCircleTarget();
@@ -77,8 +76,6 @@ public class CircleRange : MonoBehaviour
         if (other.CompareTag(ApplicationVariable.ENEMY_TAG) && firstEnemy == other.transform && firstEnemy.GetComponent<EnemiesHealth>().isAlive) {
             if (player.isCoolDown || player.isDead) return;
             player.AttackEnemy(other.gameObject);
-            /*            if (player.isDead || player.isCoolDown) { return; }
-                        player.Attack(other.gameObject);*/
         }
     }
     private void OnDestroy() {

@@ -33,6 +33,12 @@ public class EnemiesHealth : MonoBehaviour
                 if (other.GetComponent<ThrowWeapon>().who_throw == ApplicationVariable.ENEMY_TAG) { return; }
                 ParticleSystem temp = Instantiate(take_damage_FX, pos_particle.position, Quaternion.identity);
                 isAlive = false;
+                if (GamePlayController.Instance) {
+                    GamePlayController.Instance.MinusEnemy();
+                    if (GamePlayController.Instance.enemy_remain == 0) {
+                        GamePlayController.Instance.CheckSpecialCase();
+                    }
+                }
                 PlayerController player = FindFirstObjectByType<PlayerController>();
                 if (player != null) {
                     player.RemoveEnemyFromList(transform);
@@ -60,7 +66,7 @@ public class EnemiesHealth : MonoBehaviour
         }
     }
     private void TakedDamageBoss() {
-        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 1) {
             Handheld.Vibrate();
         }
         transform.localScale -= new Vector3(scale_down, scale_down, scale_down);
@@ -83,7 +89,7 @@ public class EnemiesHealth : MonoBehaviour
         //Die();
     }
     private void ZombieEnemy() {
-        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+        if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 1) {
             Handheld.Vibrate();
         }
         CircleRange player = FindFirstObjectByType<CircleRange>();

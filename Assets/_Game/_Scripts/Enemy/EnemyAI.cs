@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    //AI Enemy
     [SerializeField] private NavMeshAgent enemy;
     [SerializeField] public Animator animator;
     [SerializeField] private Transform targetIndicator;
@@ -35,7 +36,7 @@ public class EnemyAI : MonoBehaviour
     [Header("-------------Ultimate Weapon----------------")]
     public bool active_ultimate = true;
     private void Awake() {
-        canvasTransform = GameObject.FindGameObjectWithTag("CanvasOverlay").transform;
+        canvasTransform = GameObject.FindGameObjectWithTag(ApplicationVariable.CANVAS_OVERLAY).transform;
         health = GetComponentInChildren<EnemiesHealth>();
         levelManager = GetComponent<LevelManager>();
 
@@ -162,13 +163,13 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(0.55f);
         enemy.isStopped = false;
         weapon.SetActive(true);
-        animator.SetBool("IsAttack", false);
+        animator.SetBool(ApplicationVariable.ATTACK_PLAYER_STATE, false);
         if (animator.GetBool(ApplicationVariable.ULTI)) {
             animator.SetBool(ApplicationVariable.ULTI, false);
         }
-        animator.SetBool("IsIdle", true);
+        animator.SetBool(ApplicationVariable.IDLE_PLAYER_STATE, true);
         yield return new WaitForSeconds(timeCoolDown / 3);
-        animator.SetBool("IsIdle", false);
+        animator.SetBool(ApplicationVariable.IDLE_PLAYER_STATE, false);
         target = null;
         FindNearestTarget();
         isAttacking = false;
@@ -194,17 +195,11 @@ public class EnemyAI : MonoBehaviour
         if (GameStateManager.Instance.currentStateGame == ApplicationVariable.StateGame.InLobby) {
             return;
         }
-        /*        if (indicator) {
-                    Destroy(indicator);
-                }*/
         if (active_ultimate) {
             GamePlayController.Instance.isHoldGiftBox = false;
             active_ultimate = false;
             attackRange -= 2.5f;
         }
         isAttacking = false;
-        if (GamePlayController.Instance) {
-            GamePlayController.Instance.MinusEnemy();
-        }
     }
 }

@@ -25,7 +25,6 @@ public class PurchaseCustomWeapon : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text_purchaseButton;
     [SerializeField] private UIGeneratePress ui_show;
 
-    [SerializeField] private Rewarded rewarded;//prepare bay mau
     [SerializeField] private FirstPageShop[] firstPage;
 
     [SerializeField] private RewardAdsButton rewardBtn;
@@ -36,13 +35,6 @@ public class PurchaseCustomWeapon : MonoBehaviour
             five_type_weapon[i].GetComponent<MeshFilter>().mesh = weapon.skinWeapon[i].GetComponent<MeshFilter>().sharedMesh;
             five_type_weapon[i].GetComponent<MeshRenderer>().materials = weapon.skinWeapon[i].GetComponent<MeshRenderer>().sharedMaterials;
         }
-        /*        image_weapon.GetComponent<MeshFilter>().mesh = weapon.skinWeapon[2].GetComponent<MeshFilter>().sharedMesh;
-                image_weapon.GetComponent<MeshRenderer>().materials = weapon.skinWeapon[2].GetComponent<MeshRenderer>().sharedMaterials;
-                for (int i = 0; i < five_type_weapon.Length; i++)
-                {
-                    if (i == 2) { active_weapon[i].SetActive(true); }
-                    else { active_weapon[i].SetActive(false); }
-                }*/
         param_Weapon.text = weapon.param_Attack.ToString();
         nameWeapon.text = weapon.nameWeapon.ToString();
         component.ChangeComponent(weapon.imageWeapon.GetComponent<MeshRenderer>().sharedMaterials.Length);
@@ -69,22 +61,15 @@ public class PurchaseCustomWeapon : MonoBehaviour
                 }
             }
         }
-        //       image_weapon.GetComponent<MeshFilter>().mesh = weapon.skinWeapon[temp].GetComponent<MeshFilter>().sharedMesh;
-        //       image_weapon.GetComponent<MeshRenderer>().materials = weapon.skinWeapon[temp].GetComponent<MeshRenderer>().sharedMaterials;
         for (int i = 0; i < five_type_weapon.Length; i++) {
             if (i == temp) { active_weapon[i].SetActive(true); }
             else { active_weapon[i].SetActive(false); }
         }
         num_weap = temp;
-        /*        custom.SetColorButton(temp);
-                CheckEqippedWeapon(temp);
-                custom.CheckLock();*/
         firstPage[temp].num_weapon = temp;
         firstPage[temp].OnChangeType();
         firstPage[temp].CheckLock();
         if (temp == 0) {
-
-            //ui_show.ShowAndHiddenGameObject();
             TableColor.SetActive(true);
         }
         else {
@@ -105,14 +90,14 @@ public class PurchaseCustomWeapon : MonoBehaviour
             }
         }
         weaponUI.SelectWeapon(lastWeaponShop, num_weap);
-        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, "Equip");
+        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, ApplicationVariable.eqquip_status);
         weaponUI.SetAgain(lastWeaponShop.nameWeapon + " select_button" + num_weap);
         CheckEqippedWeapon((int)num_weap);
         ui_show.ShowAndHiddenGameObject();
     }
     public void GainAdsCustomWeapon() {
         weaponUI.SelectWeapon(lastWeaponShop, num_weap);
-        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, "Equip");
+        PlayerPrefs.SetString(lastWeaponShop.nameWeapon + " select_button" + num_weap, ApplicationVariable.eqquip_status);
         weaponUI.SetAgain(lastWeaponShop.nameWeapon + " select_button" + num_weap);
         CheckEqippedWeapon((int)num_weap);
         ui_show.ShowAndHiddenGameObject();
@@ -120,12 +105,12 @@ public class PurchaseCustomWeapon : MonoBehaviour
     public void CheckEqippedWeapon(int i) {
 
         if (PlayerPrefs.HasKey(lastWeaponShop.nameWeapon + " select_button" + i)) {
-            if (PlayerPrefs.GetString(lastWeaponShop.nameWeapon + " select_button" + i) == "Equip") {
-                text_purchaseButton.text = "SELECTED";
+            if (PlayerPrefs.GetString(lastWeaponShop.nameWeapon + " select_button" + i) == ApplicationVariable.eqquip_status) {
+                text_purchaseButton.text = ApplicationVariable.SELECTED_STATUS;
                 return;
             }
             else {
-                text_purchaseButton.text = "SELECT";
+                text_purchaseButton.text = ApplicationVariable.SELECT_STATUS;
                 return;
             }
         }

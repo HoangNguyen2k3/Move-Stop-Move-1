@@ -2,6 +2,7 @@ using System.Collections;
 
 //using System.Diagnostics;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public class PlayerZombie : MonoBehaviour
@@ -42,6 +43,9 @@ public class PlayerZombie : MonoBehaviour
     private Rigidbody rb;
     private bool current_revive = false;
 
+    [SerializeField] private TextMeshPro name_text;
+    [SerializeField] private SpriteRenderer level_bg;
+
     [Header("-------Abilities Temp-------")]
     public int num_choose = 0;
     public GameObject orbitWeapon;
@@ -72,6 +76,8 @@ public class PlayerZombie : MonoBehaviour
         }
         ZombieGameController.Instance?.CheckAdsCloth();
         //OrbitWeapon();
+        name_text.color = current_Mesh.material.color;
+        level_bg.color = current_Mesh.material.color;
     }
 
     private void OnCollisionStay(Collision collision) {

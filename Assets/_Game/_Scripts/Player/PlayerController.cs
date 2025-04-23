@@ -33,15 +33,17 @@ public class PlayerController : MonoBehaviour
     private Transform firstEnemy = null;
     private List<Transform> enemiesInRange = new List<Transform>();
     public bool isDead = false;
+    public bool isRealDead = false;
     private bool isAnimationDead = false;
     [HideInInspector] public bool isWinning = false;
     public bool canRevive = true;
+    public bool inRevive = false;
     public UIManager uiManager;
-    [SerializeField] private TextMeshProUGUI name_text;
-    [SerializeField] private Image level_bg;
+    //[SerializeField] private TextMeshProUGUI name_text;
+    //[SerializeField] private Image level_bg;
 
-    //[SerializeField] private TextMeshPro name_text;
-    //[SerializeField] private SpriteRenderer level_bg;
+    [SerializeField] private TextMeshPro name_text;
+    [SerializeField] private SpriteRenderer level_bg;
 
     private GameObject temp_target;
     [Header("-----------------Init weapon---------------")]
@@ -64,7 +66,6 @@ public class PlayerController : MonoBehaviour
             PlayerPrefs.SetString(weaponShops.nameWeapon + " select_button" + 1, "UnEquip");
             PlayerPrefs.SetString(weaponShops.nameWeapon + " select_button" + 0, "UnEquip");
             customWeapon.SelectWeapon(weaponShops, 2);
-            //characterPlayer.current_Weapon = weaponShops.weapon;
         }
         if (PlayerPrefs.HasKey(ApplicationVariable.USE_ONE_TIME_IN_ZOMBIE)) {
             checkAds.UseAdsCloths();
@@ -73,7 +74,6 @@ public class PlayerController : MonoBehaviour
 
     }
     private void Start() {
-        //lobby = FindFirstObjectByType<LobbyManager>();
         begin_Material = begin_Mat;
         transform.localScale = new Vector3(characterPlayer.beginRange, characterPlayer.beginRange, characterPlayer.beginRange);
         animator = GetComponent<Animator>();
@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
                 TakeInfoCloth();
             }
         }
+        name_text.text = PlayerPrefs.GetString(ApplicationVariable.NAME_PLAYER, "You");
         name_text.color = current_Mesh.material.color;
         level_bg.color = current_Mesh.material.color;
     }
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (isDead && !isAnimationDead) {
             if (SoundManager.Instance)
                 SoundManager.Instance.PlaySFXSound(SoundManager.Instance.dead);
-            if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+            if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 1) {
                 Handheld.Vibrate();
             }
             StartCoroutine(DiePlayer());
@@ -291,7 +292,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region misc
-    //something misc
     public void Ahaha() {
         SetActiveOnSmt(skinPlayerObject, true);
         SetActiveOffSmt(fullSkinPlayObject);
@@ -330,28 +330,39 @@ public class PlayerController : MonoBehaviour
         temp.GetComponent<ParticleSystemRenderer>().material = current_Mesh.material;
         isAnimationDead = true;
         animator.SetBool(ApplicationVariable.IS_DEAD_STATE, true);
-        yield return new WaitForSeconds(0.5f);
-        /*        if (!InZombieMode)
-                    cam_end.Priority = 10;*/
+        GamePlayController.Instance.CheckLose();
+        inRevive = true;
         if (canRevive && GameStateManager.Instance.currentStateGame != ApplicationVariable.StateGame.Winning) {
-            uiManager.SetReviveActive();
-            gameObject.SetActive(false);
-            canRevive = false;
-
+            GamePlayController.Instance.CheckNewNumSmt();
+            if (GamePlayController.Instance.enemy_remain > 1) {
+                yield return new WaitForSeconds(0.5f);
+                uiManager.SetReviveActive();
+                gameObject.SetActive(false);
+                canRevive = false;
+            }
+            else {
+                isDead = true;
+                isRealDead = true;
+                yield return new WaitForSeconds(0.5f);
+                Destroy(gameObject);
+            }
         }
         else {
-            /*            gameObject.GetComponent<Collider2D>().enabled = false;
-                        yield return new WaitForSeconds(0.5f);*/
+            isDead = true;
+            isRealDead = true;
+            yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
         }
     }
     public void ReturnEnvironmentMat() {
-        GameObject[] obj = GameObject.FindGameObjectsWithTag("Obstacle");
+        GameObject[] obj = GameObject.FindGameObjectsWithTag(ApplicationVariable.OBSTACLE);
         foreach (GameObject obj2 in obj) {
             obj2.GetComponentInChildren<TouchToObjectEnv>().ReturnForceColorObj();
         }
     }
     public void RevivePlayer() {
+        inRevive = false;
+        GamePlayController.Instance.CheckNewNumSmt();
         isDead = false;
         gameObject.transform.position = GamePlayController.Instance.GetRandomNavMeshPositionPlayer(30f);
         gameObject.SetActive(true);
@@ -372,7 +383,9 @@ public class PlayerController : MonoBehaviour
             isCoolDown = false;
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-
+            if (!active_ultimate && animator.GetBool(ApplicationVariable.ULTI)) {
+                animator.SetBool(ApplicationVariable.ULTI, false);
+            }
         }
         else {
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

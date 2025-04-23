@@ -43,19 +43,16 @@ public class WrapperPermParm
 }
 public static class SavingData
 {
-    public static void SaveData<T>(T data, string filename)
-    {
+    public static void SaveData<T>(T data, string filename) {
         string path = Application.persistentDataPath + "/" + filename;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);
         Debug.Log("Data saved to: " + path);
     }
 
-    public static T LoadData<T>(T defaultData, string filename)
-    {
+    public static T LoadData<T>(T defaultData, string filename) {
         string path = Application.persistentDataPath + "/" + filename;
-        if (File.Exists(path))
-        {
+        if (File.Exists(path)) {
             string json = File.ReadAllText(path);
             return JsonUtility.FromJson<T>(json);
         }

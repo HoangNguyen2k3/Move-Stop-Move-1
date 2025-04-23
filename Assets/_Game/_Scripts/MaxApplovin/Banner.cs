@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Banner : MonoBehaviour {
+public class Banner : MonoBehaviour
+{
     public static Banner instance;
     string bannerAdUnitId = "e9d23e60e7b23dab";
     public bool isZombieMode = false;
+    public bool isSuccess = false;
     /*    private void Awake()
         {
             if (isZombieMode)
@@ -16,7 +18,6 @@ public class Banner : MonoBehaviour {
         instance = this;
         Init();
         if (GameManager.Instance != null && MaxSdk.IsInitialized()) {
-            Debug.Log("teset");
             LoadBanner();
         }
 
@@ -87,10 +88,12 @@ public class Banner : MonoBehaviour {
 
     private void Banner_OnAdLoadedEvent(string arg1, MaxSdkBase.AdInfo arg2) {
         // throw new System.NotImplementedException();
+        isSuccess = true;
     }
 
     private void Banner_OnAdLoadFailedEvent(string arg1, MaxSdkBase.ErrorInfo arg2) {
         //throw new System.NotImplementedException();
+        isSuccess = false;
     }
 
     public void LoadBanner() {

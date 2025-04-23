@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public string nameEnemyWin;
+
+    //Case not kill enemy
+    public GameObject x3CoinObj;
+    public Transform newPos;
+    public GameObject textMoney;
+    public GameObject oldBG;
+    public GameObject newBG;
+    //Process
     private GameObject player;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject gameOverReal;
@@ -26,7 +34,10 @@ public class UIManager : MonoBehaviour
             GameStateManager.Instance.ChangeState(GameStateManager.Instance.loseGameState);
         }
     }
-
+    public void CheckLoseGame1() {
+        iswin = true;
+        GameStateManager.Instance.ChangeState(GameStateManager.Instance.loseGameState);
+    }
     public void SetReviveActive() {
         if (!GameStateManager.Instance.CheckInStatusGame()) {
             GameStateManager.Instance.ChangeState(GameStateManager.Instance.reviveState);
@@ -38,17 +49,27 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < textNameEnemy.Length; i++) {
             textNameEnemy[i].text = nameEnemyWin;
         }
-
         for (int i = 0; i < earnCoinlose.Length; i++) {
             earnCoinlose[i].text = GamePlayController.Instance.num_coin.ToString();
+        }
+        if (GamePlayController.Instance.num_coin == 0) {
+            x3CoinObj.SetActive(false);
+            textMoney.transform.position = newPos.position;
+            oldBG.SetActive(false);
+            newBG.SetActive(true);
         }
         for (int i = 0; i < num_rank_lose_txt.Length; i++) {
             float temp = GamePlayController.Instance.enemy_remain;
             temp += 1;
-            num_rank_lose_txt[i].text = "#" + temp.ToString();
+            if (temp == 1) {
+                num_rank_lose_txt[i].text = "#2";
+            }
+            else {
+                num_rank_lose_txt[i].text = "#" + temp.ToString();
+            }
         }
         for (int i = 0; i < name_player_txt.Length; i++) {
-            name_player_txt[i].text = PlayerPrefs.GetString("NamePlayer", "YOU");
+            name_player_txt[i].text = PlayerPrefs.GetString(ApplicationVariable.NAME_PLAYER, "YOU");
         }
         GamePlayController.Instance.CheckRecordPlayer();
     }

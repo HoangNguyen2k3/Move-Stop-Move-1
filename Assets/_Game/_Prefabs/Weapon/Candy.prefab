@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2186656525702979927}
   - component: {fileID: 127852125844864491}
   - component: {fileID: 1928835683905804675}
+  - component: {fileID: 8785395297399371878}
   m_Layer: 0
   m_Name: Candy
   m_TagString: Untagged
@@ -162,9 +163,31 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.005499842
   m_Height: 0.028365234
   m_Direction: 1
   m_Center: {x: -0.00048777164, y: -0.006223519, z: -0.0004872328}
+--- !u!64 &8785395297399371878
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619172995278842757}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 37a28123e5e39f44fbff5daa106af161, type: 3}

@@ -92,6 +92,8 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   edgeOffset: 40
   indicatorObject: {fileID: 1103002668369239127}
+  enemy: {fileID: 0}
+  bannerHeight: 160
 --- !u!114 &2226565093451711025
 MonoBehaviour:
   m_ObjectHideFlags: 0

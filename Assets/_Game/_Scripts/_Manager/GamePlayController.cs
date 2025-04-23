@@ -3,6 +3,7 @@ using Unity.AI.Navigation;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -23,10 +24,12 @@ public class GamePlayController : Singleton<GamePlayController>
     [HideInInspector] public string name_enemy_win;
     private float rangeSpawn = 30f;
     private float num_check_spawn = 30f;
-    private float begin_range = 7f;
+    private float begin_range = 12f;
     private float normal_range = 25f;
     private float max_enemy_spawn_in_map = 10f;
     public bool islose = false;
+    public bool islose_player_local = false;
+    public bool islose_player_local_temp = false;
     public PlayerController playerController;
     public LevelManager levelManager;
     private float enemy_not_spawn_num;
@@ -62,9 +65,6 @@ public class GamePlayController : Singleton<GamePlayController>
         if (isGiftBox)
             InvokeRepeating(nameof(SpawnGift), 0, 5f);
     }
-
-
-
     private void Update() {
         if (GameStateManager.Instance.currentStateGame == ApplicationVariable.StateGame.InLobby) {
             return;
@@ -72,10 +72,8 @@ public class GamePlayController : Singleton<GamePlayController>
         if (playerController == null && !uiManager.iswin && !GameStateManager.Instance.CheckInStatusGame()) {
             uiManager.CheckLoseGame();
         }
-
-        if (enemy_remain <= 0 && !GameStateManager.Instance.CheckInStatusGame()) {
-            GameStateManager.Instance.ChangeState(GameStateManager.Instance.winGameState);
-        }
+        CheckLose();
+        CheckWin();
         if (playerController == null && enemy_remain == 1) {
             EnemyAI enemy_win = FindFirstObjectByType<EnemyAI>();
             if (enemy_win.iswinning == false) {
@@ -109,6 +107,35 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
 
+    #region Check Game Status
+    public void CheckSpecialCase() {
+        if (playerController.inRevive == true) {
+            if (!islose_player_local) {
+                islose_player_local_temp = true;
+                //CheckLose();
+                uiManager.CheckLoseGame1();
+                islose_player_local = true;
+            }
+        }
+        else {
+            CheckWin();
+        }
+    }
+    public void CheckWin() {
+        if (!islose_player_local && !islose_player_local_temp && enemy_remain <= 0 && !GameStateManager.Instance.CheckInStatusGame()) {
+            GameStateManager.Instance.ChangeState(GameStateManager.Instance.winGameState);
+        }
+    }
+
+    public void CheckLose() {
+        if (islose_player_local = false && !uiManager.iswin && !GameStateManager.Instance.CheckInStatusGame()) {
+            uiManager.CheckLoseGame();
+            islose_player_local = true;
+        }
+    }
+
+    #endregion
+
     #region Revive and manage Player
     public void Revive() {
         playerController.RevivePlayer();
@@ -120,7 +147,13 @@ public class GamePlayController : Singleton<GamePlayController>
         InvokeRepeating(nameof(SpawnEnemy), 0, 2.5f);
     }
     private string quickAddText(float num) {
-        return enemy_text + num.ToString();
+        if (playerController.inRevive) {
+            return enemy_text + (num).ToString();
+        }
+        return enemy_text + (num + 1).ToString();
+    }
+    public void CheckNewNumSmt() {
+        enemy_alive.text = quickAddText(enemy_remain);
     }
     public void MinusEnemy() {
         enemy_remain--;
@@ -200,7 +233,7 @@ public class GamePlayController : Singleton<GamePlayController>
             Vector3 randomDirection = Random.insideUnitSphere * radius + origin;
             if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
                 randomPoint = hit.position;
-                if ((playerController && Vector3.Distance(randomPoint, playerController.gameObject.transform.position) < 7f) || !CheckReviveCondition(randomPoint, 7f)) {
+                if ((playerController && Vector3.Distance(randomPoint, playerController.gameObject.transform.position) < 7f) || !CheckReviveCondition(randomPoint, 6.5f)) {
                     continue;
                 }
                 return hit.position;

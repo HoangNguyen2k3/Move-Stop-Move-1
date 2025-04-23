@@ -201,7 +201,7 @@ public class ThrowWeapon : MonoBehaviour
                 other.gameObject.GetComponentInChildren<EnemiesHealth>().isBoss == false
                 && other.gameObject.GetComponentInChildren<EnemiesHealth>().isScore == false) {
                 ExplosionMethod();
-                if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 0) {
+                if (PlayerPrefs.GetInt(ApplicationVariable.VIBRANT) == 1) {
                     Handheld.Vibrate();
                 }
                 currentlevelObject.AddLevel();
@@ -248,6 +248,9 @@ public class ThrowWeapon : MonoBehaviour
                 currentlevelObject.AddLevel();
                 other.gameObject.GetComponent<EnemiesHealth>().TakeColorMaterial();
                 other.gameObject.GetComponent<EnemiesHealth>().Die();
+                if (GamePlayController.Instance) {
+                    GamePlayController.Instance.MinusEnemy();
+                }
                 if (!isUltimate)
                     Destroy(gameObject);
             }

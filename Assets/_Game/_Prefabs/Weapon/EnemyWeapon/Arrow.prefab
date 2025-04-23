@@ -49,17 +49,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 3458ac2020725414089a0eaa8cb9ebce, type: 2}
+  isZombieMode: 0
   who_throw_obj: {fileID: 0}
   who_throw: Player
   currentlevelObject: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
-  isZombieMode: 0
   dir: {x: 0, y: 0, z: 0}
   target_transform: {fileID: 0}
+  explosion: {fileID: 0}
   upScaleWeapon: 0
   throwEnemy: 0
   throwWall: 0
-  touchSmt: {fileID: 8300000, guid: f4e59084b141a76498a865bc81ef9a8a, type: 3}
+  explosion_Attack: 0
+  isUltimate: 0
+  dir_ulti: {x: 0, y: 0, z: 0}
 --- !u!54 &9039271535871085048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +164,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.004584859
+  m_Radius: 0.0012529945
   m_Height: 0.025224326
   m_Direction: 1
-  m_Center: {x: -0.0002551662, y: 0.0021604486, z: -0.0017144885}
+  m_Center: {x: -0.0002551662, y: 0.0021604486, z: 0.00015902914}
