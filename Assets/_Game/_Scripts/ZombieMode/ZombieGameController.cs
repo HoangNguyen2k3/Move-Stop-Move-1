@@ -38,6 +38,11 @@ public class ZombieGameController : Singleton<ZombieGameController>
     [SerializeField] private TextMeshProUGUI coin_lose_x3;
     private CoinManager coinManager;
     public bool x2GoldAbilities = false;
+    private bool zombie_win = false;
+    [Header("------------------Special Case------------------")]
+    public Transform posLoseSpecial;
+    public GameObject normal_money;
+    public GameObject x3money;
     [Header("--------------------Indicator---------------------")]
     public GameObject floatingTextPlayer;
     public GameObject CanvasIndicator;
@@ -79,15 +84,28 @@ public class ZombieGameController : Singleton<ZombieGameController>
             InvokeRepeating(nameof(SpawnEnemy), 0, 2.5f);
         }
         if (islose && !temp) {
-
             currentInLobbyZombie = true;
             CanvasIndicator.SetActive(false);
             SetUpCoin();
             temp = true;
             loseReal.SetActive(true);
             CancelInvoke(nameof(SpawnEnemy));
+            if (!zombie_win) {
+                zombie_win = true;
+                GameObject[] enemies1 = GameObject.FindGameObjectsWithTag(ApplicationVariable.ENEMY_TAG);
+                foreach (var enemyObject in enemies1) {
+                    if (enemyObject != null) {
+                        ZombieEnemy ai = enemyObject.GetComponent<ZombieEnemy>();
+                        if (ai != null) {
+                            ai.WinningZombie();
+                        }
+                    }
+                }
+            }
         }
-        if (islose) { return; }
+        if (islose) {
+            return;
+        }
         if (enemy_remain <= 0 && !iswinning) {
             currentInLobbyZombie = true;
             CanvasIndicator.SetActive(false);
@@ -131,6 +149,10 @@ public class ZombieGameController : Singleton<ZombieGameController>
         coin_lose.text = num_coin.ToString();
         coin_win_x3.text = (num_coin * 3).ToString();
         coin_lose_x3.text = (num_coin * 3).ToString();
+        if (num_coin == 0) {
+            normal_money.transform.position = posLoseSpecial.position;
+            x3money.SetActive(false);
+        }
     }
     public void EarnCoin() {
         coinManager.AddingCoin();
@@ -195,20 +217,38 @@ public class ZombieGameController : Singleton<ZombieGameController>
             }
         }
     }
+    /*    private Vector3 GetRandomNavMeshPosition(Vector3 origin, float radius) {
+            for (int i = 0; i < 30; i++) {
+                Vector3 randomDirection = Random.insideUnitSphere * radius + origin;
+                if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
+                    randomPoint = hit.position;
+                    if (Vector3.Distance(randomPoint, playerController.gameObject.transform.position) < 12f) {
+                        if (randomPoint.y > 0f) { continue; }
+                        continue;
+                    }
+                    Debug.Log(Vector3.Distance(randomPoint, playerController.gameObject.transform.position));
+                    return hit.position;
+                }
+            }
+            return origin;
+        }*/
     private Vector3 GetRandomNavMeshPosition(Vector3 origin, float radius) {
         for (int i = 0; i < 30; i++) {
             Vector3 randomDirection = Random.insideUnitSphere * radius + origin;
             if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
-                randomPoint = hit.position;
-                if (Vector3.Distance(randomPoint, playerController.gameObject.transform.position) < 10f) {
-                    if (randomPoint.y > 0f) { continue; }
-                    continue;
+                Vector3 candidate = hit.position;
+                float distanceToPlayer = Vector3.Distance(candidate, playerController.gameObject.transform.position);
+
+                if (distanceToPlayer >= 12f && candidate.y <= 0f) {
+                    return candidate;
                 }
-                return hit.position;
             }
         }
+        // n?u không tìm ???c ch? h?p l?, tr? v? g?c (có th? gây spawn g?n player)
         return origin;
     }
+
+
     public void StopSpawn() {
         CancelInvoke(nameof(SpawnEnemy));
     }

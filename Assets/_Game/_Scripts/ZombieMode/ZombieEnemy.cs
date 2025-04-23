@@ -64,6 +64,12 @@ public class ZombieEnemy : MonoBehaviour
         indicator.GetComponent<OffScreenIndicatorZombie>().target = posStartThrow;
         indicator.GetComponent<OffScreenIndicatorZombie>().mainCamera = Camera.main;
     }
+    public void WinningZombie() {
+        dance = true;
+        agent.isStopped = true;
+        animator.SetBool(ApplicationVariable.ZOMBIE_WIN, true);
+        return;
+    }
     private void OnDisable() {
         if (!ZombieGameController.Instance.currentInLobbyZombie)
             manager.MinusEnemy();

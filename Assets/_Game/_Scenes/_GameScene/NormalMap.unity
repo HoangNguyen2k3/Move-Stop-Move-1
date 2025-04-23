@@ -26040,7 +26040,7 @@ MonoBehaviour:
   exit_button: {fileID: 315333976}
   text_button: {fileID: 838281379}
   coinImage: {fileID: 886083679}
-  coinManager: {fileID: 0}
+  coinManager: {fileID: 309138989}
   paramText: {fileID: 1814467189}
   fullSkinShop: []
   num_page: 0
@@ -37905,7 +37905,7 @@ MonoBehaviour:
   exit_button: {fileID: 315333976}
   text_button: {fileID: 838281379}
   coinImage: {fileID: 886083679}
-  coinManager: {fileID: 0}
+  coinManager: {fileID: 309138989}
   paramText: {fileID: 1814467189}
   fullSkinShop:
   - {fileID: 11400000, guid: e0da7003f85869f45bc2d96c9ba3d091, type: 2}
@@ -45901,7 +45901,7 @@ MonoBehaviour:
   exit_button: {fileID: 315333976}
   text_button: {fileID: 838281379}
   coinImage: {fileID: 886083679}
-  coinManager: {fileID: 0}
+  coinManager: {fileID: 309138989}
   paramText: {fileID: 1814467189}
   fullSkinShop: []
   num_page: 0
@@ -53859,7 +53859,7 @@ MonoBehaviour:
   exit_button: {fileID: 315333976}
   text_button: {fileID: 838281379}
   coinImage: {fileID: 886083679}
-  coinManager: {fileID: 0}
+  coinManager: {fileID: 309138989}
   paramText: {fileID: 1814467189}
   fullSkinShop: []
   num_page: 0
@@ -54279,18 +54279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbaacb28efeb24478d1e4b027d7a1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponShopUI: {fileID: 2142306764}
-  clothes: {fileID: 1185371661}
-  revive_show1: {fileID: 215887374}
-  revive_show2: {fileID: 1362919939}
-  zombieManager: {fileID: 0}
-  enterToOtherScene: {fileID: 0}
-  adUnitId: b14b72eb2d1e8ff3
-  current_ads: 
-  inZombieMode: 1
-  firstTime1: 1
-  failAds: {fileID: 3991470263747481252}
-  hasReceivedReward: 0
 --- !u!114 &1385389984
 MonoBehaviour:
   m_ObjectHideFlags: 0
